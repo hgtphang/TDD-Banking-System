@@ -1,36 +1,42 @@
-public class Account {
-	private double apr = 0.02;
-	private double accountBalance = 0;
+public abstract class Account {
+	private int id;
+	private double apr;
+	private double balance;
 
-	public Account(double initialBalance) {
-		deposit(initialBalance);
+	public Account(int id, double apr) {
+		this.id = id;
+		this.apr = apr;
+	}
+
+	public Account(int id, double apr, double balance) {
+		this.id = id;
+		this.apr = apr;
+		this.balance = balance;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public double getAPR() {
 		return apr;
 	}
 
+	public double getBalance() {
+		return balance;
+	}
+
 	public double deposit(double depositAmount) {
-		accountBalance += depositAmount;
-		return accountBalance;
+		balance += depositAmount;
+		return balance;
 	}
 
 	public double withdraw(double withdrawAmount) {
-		if (withdrawAmount > accountBalance) {
-			accountBalance = 0;
+		if (withdrawAmount > balance) {
+			balance = 0;
 		} else {
-			accountBalance -= withdrawAmount;
+			balance -= withdrawAmount;
 		}
-		return accountBalance;
+		return balance;
 	}
-
-	public double getBalance() {
-		return accountBalance;
-	}
-
-//	public abstract double deposit();
-//
-//	public abstract double withdraw();
-//
-//	public abstract double getBalance();
 }

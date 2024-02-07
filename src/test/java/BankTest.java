@@ -8,12 +8,14 @@ public class BankTest {
 	Bank bank;
 	Account checkingAccount;
 	Account savingsAccount;
+	Account cdAccount;
 
 	@BeforeEach
 	public void setUp() {
 		bank = new Bank();
-		checkingAccount = new CheckingAccount();
-		savingsAccount = new SavingsAccount();
+		checkingAccount = new CheckingAccount(00000001, 0.1);
+		savingsAccount = new SavingsAccount(00000002, 0.2);
+		cdAccount = new CDAccount(00000003, 0.3, 1000.00);
 	}
 
 	@Test
@@ -50,6 +52,7 @@ public class BankTest {
 
 	@Test
 	public void correct_account_gets_deposited_by_id() {
+		bank.addAccount(savingsAccount);
 		bank.addAccount(checkingAccount);
 		bank.depositById(checkingAccount.hashCode(), 500.00);
 		double actual = checkingAccount.getBalance();
@@ -60,10 +63,11 @@ public class BankTest {
 	@Test
 	public void correct_account_gets_withdrawn_by_id() {
 		bank.addAccount(checkingAccount);
-		bank.withdrawById(checkingAccount.hashCode(), 200.00);
-		double actual = checkingAccount.getBalance();
+		bank.addAccount(cdAccount);
+		bank.withdrawById(cdAccount.hashCode(), 400.00);
+		double actual = cdAccount.getBalance();
 
-		assertEquals(0.00, actual);
+		assertEquals(600.00, actual);
 	}
 
 	@Test

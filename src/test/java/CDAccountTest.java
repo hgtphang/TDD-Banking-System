@@ -9,13 +9,13 @@ public class CDAccountTest {
 
 	@BeforeEach
 	public void setUp() {
-		cdAccount = new CDAccount(1000.00);
+		cdAccount = new CDAccount(00000003, 0.3, 1000.00);
 	}
 
 	@Test
 	public void cd_account_created_with_supplied_balance() {
 		double balance = cdAccount.getBalance();
 
-		assertEquals(CDAccount.CD_DEFAULT_BALANCE, balance);
+		assertEquals(1000.00, balance);
 	}
 }

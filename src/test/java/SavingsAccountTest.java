@@ -9,13 +9,13 @@ public class SavingsAccountTest {
 
 	@BeforeEach
 	public void setUp() {
-		savingsAccount = new SavingsAccount();
+		savingsAccount = new SavingsAccount(00000002, 0.2);
 	}
 
 	@Test
 	public void savings_account_created_with_zero_balance() {
 		double actual = savingsAccount.getBalance();
 
-		assertEquals(SavingsAccount.SAVINGS_DEFAULT_BALANCE, actual);
+		assertEquals(0, actual);
 	}
 }

@@ -9,14 +9,13 @@ public class CheckingAccountTest {
 
 	@BeforeEach
 	public void setUp() {
-		checkingAccount = new CheckingAccount();
+		checkingAccount = new CheckingAccount(00000001, 0.1);
 	}
 
 	@Test
 	public void checking_account_created_with_zero_balance() {
 		double actual = checkingAccount.getBalance();
 
-		assertEquals(CheckingAccount.CHECKING_DEFAULT_BALANCE, actual);
+		assertEquals(0, actual);
 	}
-
 }
