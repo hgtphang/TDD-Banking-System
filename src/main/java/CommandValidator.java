@@ -7,6 +7,11 @@ public class CommandValidator {
 			if (parts.length != 3) {
 				return false;
 			}
+			try {
+				Integer.parseInt(parts[1]);
+			} catch (NumberFormatException e) {
+				return false;
+			}
 			return true;
 		}
 

@@ -68,4 +68,10 @@ public class CommandValidatorTest {
 		assertTrue(actual);
 	}
 
+	@Test
+	void deposit_has_missing_id_is_invalid() {
+		boolean actual = commandValidator.validate("deposit 200");
+		assertFalse(actual);
+	}
+
 }
