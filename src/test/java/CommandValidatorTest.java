@@ -38,4 +38,10 @@ public class CommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void create_has_missing_id_is_invalid() {
+		boolean actual = commandValidator.validate("create checking 0.3");
+		assertFalse(actual);
+	}
+
 }
