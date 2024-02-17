@@ -19,19 +19,29 @@ public class CommandValidator {
 		try {
 			Integer.parseInt(parts[2]);
 		} catch (NumberFormatException e) {
-			return false; // parts[2] is not an integer
+			return false;
 		}
 
 		// parts[3]
 		try {
 			Double.parseDouble(parts[3]);
 		} catch (NumberFormatException e) {
-			return false; // parts[3] is not a double
+			return false;
 		}
 
-		// testing cd account missing balance
-		if (parts[1].equals("cd") && parts.length != 5) {
-			return false;
+		// testing cd account missing balance and negative balance
+		if (parts[1].equals("cd")) {
+			if (parts.length != 5) {
+				return false;
+			}
+			try {
+				double balance = Double.parseDouble(parts[4]);
+				if (balance < 0) {
+					return false;
+				}
+			} catch (NumberFormatException e) {
+				return false;
+			}
 		}
 
 		// all checks passed, command is valid
