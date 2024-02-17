@@ -1,4 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommandValidator {
+	private List<String> existingAccountIds;
+
+	public CommandValidator() {
+		existingAccountIds = new ArrayList<>();
+		existingAccountIds.add("12345678");
+		existingAccountIds.add("23456789");
+	}
+
 	public boolean validate(String str) {
 		String[] parts = str.split(" ");
 
@@ -7,11 +18,11 @@ public class CommandValidator {
 			if (parts.length != 3) {
 				return false;
 			}
-			try {
-				Integer.parseInt(parts[1]);
-			} catch (NumberFormatException e) {
+
+			if (existingAccountIds.contains(parts[2])) {
 				return false;
 			}
+
 			return true;
 		}
 
