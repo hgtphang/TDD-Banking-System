@@ -21,6 +21,12 @@ public class CommandValidatorTest {
 	}
 
 	@Test
+	void typo_in_create_is_invalid() {
+		boolean actual = commandValidator.validate("cre@te checking 12345678 0.4");
+		assertFalse(actual);
+	}
+
+	@Test
 	void create_has_missing_create_is_invalid() {
 		boolean actual = commandValidator.validate("");
 		assertFalse(actual);
@@ -31,4 +37,5 @@ public class CommandValidatorTest {
 		boolean actual = commandValidator.validate("create 12345678 0.2");
 		assertFalse(actual);
 	}
+
 }
