@@ -25,4 +25,10 @@ public class CommandValidatorTest {
 		boolean actual = commandValidator.validate("");
 		assertFalse(actual);
 	}
+
+	@Test
+	void create_has_missing_account_type_is_invalid() {
+		boolean actual = commandValidator.validate("create 12345678 0.2");
+		assertFalse(actual);
+	}
 }
