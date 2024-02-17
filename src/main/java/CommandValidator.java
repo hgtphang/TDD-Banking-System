@@ -1,6 +1,16 @@
 public class CommandValidator {
 	public boolean validate(String str) {
 		String[] parts = str.split(" ");
+
+		// --- Testing for Deposit ---
+		if (parts[0].equals("deposit")) {
+			if (parts.length != 3) {
+				return false;
+			}
+			return true;
+		}
+
+		// --- Testing for Create ---
 		if (parts.length != 4) {
 			return false;
 		}

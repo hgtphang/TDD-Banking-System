@@ -62,4 +62,10 @@ public class CommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void deposit_is_valid() {
+		boolean actual = commandValidator.validate("deposit 12345678 200");
+		assertTrue(actual);
+	}
+
 }
