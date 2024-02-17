@@ -22,6 +22,13 @@ public class CommandValidator {
 			return false; // parts[2] is not an integer
 		}
 
+		// parts[3]
+		try {
+			Double.parseDouble(parts[3]);
+		} catch (NumberFormatException e) {
+			return false; // parts[3] is not a double
+		}
+
 		// all checks passed, command is valid
 		return true;
 	}

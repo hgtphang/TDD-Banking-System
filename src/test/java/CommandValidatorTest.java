@@ -44,4 +44,10 @@ public class CommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void create_has_missing_apr_is_invalid() {
+		boolean actual = commandValidator.validate("create checking 12345678");
+		assertFalse(actual);
+	}
+
 }
