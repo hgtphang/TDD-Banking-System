@@ -50,4 +50,10 @@ public class CommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void create_cd_has_missing_balance_is_invalid() {
+		boolean actual = commandValidator.validate("create cd 12345678 0.3");
+		assertFalse(actual);
+	}
+
 }

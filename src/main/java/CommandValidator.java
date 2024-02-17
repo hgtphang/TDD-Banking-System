@@ -29,6 +29,11 @@ public class CommandValidator {
 			return false; // parts[3] is not a double
 		}
 
+		// testing cd account missing balance
+		if (parts[1].equals("cd") && parts.length != 5) {
+			return false;
+		}
+
 		// all checks passed, command is valid
 		return true;
 	}
