@@ -41,6 +41,13 @@ public class CommandValidator {
 			return false;
 		}
 
+		// checking if checking account exists id "23456789"
+		if (parts[1].equals("checking")) {
+			if (existingAccountIds.contains(parts[2])) {
+				return false;
+			}
+		}
+
 		// parts[2]
 		try {
 			Integer.parseInt(parts[2]);

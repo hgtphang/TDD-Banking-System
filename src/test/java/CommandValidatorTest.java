@@ -15,9 +15,15 @@ public class CommandValidatorTest {
 	}
 
 	@Test
-	void create_is_valid() {
+	void create_account_is_valid() {
 		boolean actual = commandValidator.validate("create savings 12345678 0.6");
 		assertTrue(actual);
+	}
+
+	@Test
+	void create_account_already_exists_is_invalid() {
+		boolean actual = commandValidator.validate("create checking 23456789 0.6");
+		assertFalse(actual);
 	}
 
 	@Test
