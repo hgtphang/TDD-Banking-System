@@ -27,6 +27,12 @@ public class CommandValidatorTest {
 	}
 
 	@Test
+	void typo_in_account_type_is_invalid() {
+		boolean actual = commandValidator.validate("create che@king 12345678 0.5");
+		assertFalse(actual);
+	}
+
+	@Test
 	void create_has_missing_create_is_invalid() {
 		boolean actual = commandValidator.validate("");
 		assertFalse(actual);
