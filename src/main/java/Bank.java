@@ -1,11 +1,25 @@
 import java.util.HashMap;
-import java.util.Map;
 
 public class Bank {
-	private Map<Integer, Account> accounts;
+	private HashMap<Integer, Account> accounts = new HashMap<>();
 
-	public Bank() {
-		this.accounts = new HashMap<>();
+	public HashMap<Integer, Account> getAccounts() {
+		return accounts;
+	}
+
+	public void createCheckingAccount(Integer id, double apr) {
+		CheckingAccount account = new CheckingAccount(id, apr);
+		accounts.put(id, account);
+	}
+
+	public void createSavingsAccount(Integer id, double apr) {
+		SavingsAccount account = new SavingsAccount(id, apr);
+		accounts.put(id, account);
+	}
+
+	public void createCDAccount(Integer id, double apr, double balance) {
+		CDAccount account = new CDAccount(id, apr, balance);
+		accounts.put(id, account);
 	}
 
 	public void addAccount(Account account) {
