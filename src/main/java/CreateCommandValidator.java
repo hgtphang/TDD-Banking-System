@@ -13,7 +13,7 @@ public class CreateCommandValidator {
 			if (checkCreateCheckingAccountType(parts) || checkCreateSavingsAccountType(parts)) {
 				return checkAccountIdAndApr(parts);
 			}
-		} else if (checkCreateCDAccountHasFourArguments(parts) && checkCreateCDWithBalance(parts)) {
+		} else if (checkCreateCDAccountHasFiveArguments(parts) && checkCreateCDWithBalance(parts)) {
 			if (checkCreateCDAccountType(parts)) {
 				return checkAccountIdAndApr(parts);
 			}
@@ -63,7 +63,7 @@ public class CreateCommandValidator {
 	}
 
 	// -- cd account --
-	public boolean checkCreateCDAccountHasFourArguments(String[] parts) {
+	public boolean checkCreateCDAccountHasFiveArguments(String[] parts) {
 		return parts.length == 5;
 	}
 
@@ -74,7 +74,7 @@ public class CreateCommandValidator {
 	public boolean checkCreateCDWithBalance(String[] parts) {
 		try {
 			double initialBalance = Double.parseDouble(parts[4]);
-			return (initialBalance >= 1000 && initialBalance <= 10000);
+			return (initialBalance >= 500 && initialBalance <= 2500);
 		} catch (NumberFormatException e) {
 			return false;
 		}
