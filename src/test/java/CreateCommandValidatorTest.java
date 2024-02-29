@@ -81,6 +81,12 @@ public class CreateCommandValidatorTest {
 	}
 
 	@Test
+	void create_has_wrong_account_type_and_account_id_is_invalid() {
+		boolean actual = commandValidator.validate("create ch@cking 1ABC5678 1.2");
+		assertFalse(actual);
+	}
+
+	@Test
 	void create_cd_has_wrong_balance_is_invalid() {
 		boolean actual = commandValidator.validate("create cd 12345678 0.2 8A0");
 		assertFalse(actual);
@@ -116,4 +122,5 @@ public class CreateCommandValidatorTest {
 		boolean actual = commandValidator.validate("create checking 12345678 1,2");
 		assertFalse(actual);
 	}
+
 }
