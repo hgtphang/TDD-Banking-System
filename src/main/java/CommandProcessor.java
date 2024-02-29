@@ -1,12 +1,14 @@
 public class CommandProcessor {
 
-	private Bank bank;
+	private final Bank bank;
 
 	public CommandProcessor(Bank bank) {
 		this.bank = bank;
 	}
 
-	public void handle(String[] parts) {
+	public void handle(String str) {
+		String[] parts = str.stripTrailing().split(" ");
+
 		if (parts[0].equals("create")) {
 			createHandler(parts);
 		} else if (parts[0].equals("deposit")) {
