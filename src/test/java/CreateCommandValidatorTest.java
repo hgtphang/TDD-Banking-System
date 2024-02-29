@@ -123,4 +123,9 @@ public class CreateCommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void create_checking_or_savings_account_with_amount_is_invalid() {
+		boolean actual = commandValidator.validate("create checking 12345678 2.3 500");
+		assertFalse(actual);
+	}
 }
