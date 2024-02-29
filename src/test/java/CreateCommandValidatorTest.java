@@ -22,7 +22,7 @@ public class CreateCommandValidatorTest {
 
 	@Test
 	void create_cd_account_is_valid() {
-		boolean actual = commandValidator.validate("create cd 12345678 0.2 700");
+		boolean actual = commandValidator.validate("create cd 12345678 1.2 2000");
 		assertTrue(actual);
 	}
 
@@ -94,19 +94,19 @@ public class CreateCommandValidatorTest {
 
 	@Test
 	void create_cd_account_has_less_initial_balance_is_invalid() {
-		boolean actual = commandValidator.validate("create cd 12345678 0.6 100");
+		boolean actual = commandValidator.validate("create cd 12345678 0.6 500");
 		assertFalse(actual);
 	}
 
 	@Test
 	void create_cd_account_has_more_initial_balance_is_invalid() {
-		boolean actual = commandValidator.validate("create cd 12345678 0.6 5000");
+		boolean actual = commandValidator.validate("create cd 12345678 0.6 20000");
 		assertFalse(actual);
 	}
 
 	@Test
 	void create_cd_has_negative_balance_is_invalid() {
-		boolean actual = commandValidator.validate("create cd 12345678 0.3 -10000.00");
+		boolean actual = commandValidator.validate("create cd 12345678 0.3 -3000");
 		assertFalse(actual);
 	}
 }
