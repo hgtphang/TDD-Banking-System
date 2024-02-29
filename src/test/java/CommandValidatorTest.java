@@ -38,4 +38,27 @@ public class CommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void deposit_has_words_in_caps_is_valid() {
+		bank.createCheckingAccount(12345678, 1.2);
+
+		boolean actual = commandValidator.validate("DEPOSIT 12345678 200");
+		assertTrue(actual);
+	}
+
+	@Test
+	void typo_in_deposit_is_invalid() {
+		bank.createSavingsAccount(12345678, 1.3);
+
+		boolean actual = commandValidator.validate("dep@sit 12345678 300");
+		assertFalse(actual);
+	}
+
+	@Test
+	void deposit_has_missing_deposit_is_invalid() {
+		bank.createCheckingAccount(12345678, 1.4);
+
+		boolean actual = commandValidator.validate("12345678 400");
+		assertFalse(actual);
+	}
 }
