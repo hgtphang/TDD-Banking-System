@@ -15,6 +15,9 @@ class CommandValidator {
 		} else if (parts[0].equalsIgnoreCase("deposit")) {
 			DepositCommandValidator depositCommandValidator = new DepositCommandValidator(bank);
 			return depositCommandValidator.validate(str);
+		} else if (parts[0].equalsIgnoreCase("withdraw")) {
+			WithdrawCommandValidator withdrawCommandValidator = new WithdrawCommandValidator(bank);
+			return withdrawCommandValidator.validate(str);
 		} else {
 			return false;
 		}
