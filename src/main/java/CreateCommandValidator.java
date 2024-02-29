@@ -74,7 +74,7 @@ public class CreateCommandValidator {
 	public boolean checkCreateCDWithBalance(String[] parts) {
 		try {
 			double initialBalance = Double.parseDouble(parts[4]);
-			return (initialBalance >= 500 && initialBalance <= 2500);
+			return (initialBalance >= 1000 && initialBalance <= 10000);
 		} catch (NumberFormatException e) {
 			return false;
 		}
