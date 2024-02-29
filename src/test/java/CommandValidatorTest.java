@@ -61,4 +61,23 @@ public class CommandValidatorTest {
 		boolean actual = commandValidator.validate("12345678 400");
 		assertFalse(actual);
 	}
+
+	@Test
+	void withdraw_command_is_valid() {
+		boolean actual = commandValidator.validate("withdraw 12345678 200");
+		assertTrue(actual);
+	}
+
+	@Test
+	void withdraw_command_has_withdraw_in_cap_is_valid() {
+		boolean actual = commandValidator.validate("WITHDRAW 12345678 200");
+		assertTrue(actual);
+	}
+
+	@Test
+	void withdraw_command_has_missing_withdraw_is_invalid() {
+		boolean actual = commandValidator.validate("12345678 200");
+		assertFalse(actual);
+	}
+
 }
