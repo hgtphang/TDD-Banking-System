@@ -15,7 +15,7 @@ public class CreateCommandValidatorTest {
 	}
 
 	@Test
-	void create_account_is_valid() {
+	void create_checking_or_savings_account_is_valid() {
 		boolean actual = commandValidator.validate("create savings 12345678 0.6");
 		assertTrue(actual);
 	}
@@ -107,6 +107,13 @@ public class CreateCommandValidatorTest {
 	@Test
 	void create_cd_has_negative_balance_is_invalid() {
 		boolean actual = commandValidator.validate("create cd 12345678 0.3 -3000");
+		assertFalse(actual);
+	}
+
+	@Test
+	void create_account_already_exits_is_invalid() {
+		bank.createCheckingAccount(12345678, 2.2);
+		boolean actual = commandValidator.validate("create checking 12345678 1,2");
 		assertFalse(actual);
 	}
 }
