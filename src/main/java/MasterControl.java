@@ -14,9 +14,8 @@ public class MasterControl {
 
 	public List<String> start(List<String> input) {
 		for (String command : input) {
-			String[] parts = command.stripTrailing().split(" ");
 			if (commandValidator.validate(command)) {
-				commandProcessor.handle(parts);
+				commandProcessor.handle(command);
 			} else {
 				commandStorage.store(command);
 			}
