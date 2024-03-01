@@ -1,3 +1,5 @@
+package banking;
+
 public class DepositCommandValidator {
 	private final Bank bank;
 
