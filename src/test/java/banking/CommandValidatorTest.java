@@ -66,12 +66,14 @@ public class CommandValidatorTest {
 
 	@Test
 	void withdraw_command_is_valid() {
+		bank.createCheckingAccount(12345678, 2.1);
 		boolean actual = commandValidator.validate("withdraw 12345678 200");
 		assertTrue(actual);
 	}
 
 	@Test
 	void withdraw_command_has_withdraw_in_cap_is_valid() {
+		bank.createCheckingAccount(12345678, 2.1);
 		boolean actual = commandValidator.validate("WITHDRAW 12345678 200");
 		assertTrue(actual);
 	}
