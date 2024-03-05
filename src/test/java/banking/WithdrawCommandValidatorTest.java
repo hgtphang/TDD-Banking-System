@@ -19,6 +19,7 @@ public class WithdrawCommandValidatorTest {
 
 	@Test
 	void a_valid_withdraw_command() {
+		bank.createCheckingAccount(12345678, 1.2);
 		boolean actual = commandValidator.validate("withdraw 12345678 200");
 		assertTrue(actual);
 	}
