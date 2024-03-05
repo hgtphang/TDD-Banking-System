@@ -43,7 +43,15 @@ public class WithdrawCommandValidatorTest {
 
 	@Test
 	void withdraw_more_than_allowed_from_checking_account_is_invalid() {
+		bank.createCheckingAccount(12345678, 2.1);
 		boolean actual = commandValidator.validate("withdraw 12345678 500");
+		assertFalse(actual);
+	}
+
+	@Test
+	void withdraw_more_than_allowed_from_savings_account_is_invalid() {
+		bank.createSavingsAccount(23456789, 1.2);
+		boolean actual = commandValidator.validate("withdraw 23456789 2000");
 		assertFalse(actual);
 	}
 
