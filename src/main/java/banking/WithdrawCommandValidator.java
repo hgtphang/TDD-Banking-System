@@ -27,12 +27,14 @@ public class WithdrawCommandValidator {
 	}
 
 	public boolean isCheckingAccount(String[] parts) {
-		Account account = bank.getAccounts().get(parts[1]);
+		int accountID = Integer.parseInt(parts[1]);
+		Account account = bank.getAccounts().get(accountID);
 		return account instanceof CheckingAccount;
 	}
 
 	public boolean isSavingsAccount(String[] parts) {
-		Account account = bank.getAccounts().get(parts[1]);
+		int accountID = Integer.parseInt(parts[1]);
+		Account account = bank.getAccounts().get(accountID);
 		return account instanceof SavingsAccount;
 	}
 
