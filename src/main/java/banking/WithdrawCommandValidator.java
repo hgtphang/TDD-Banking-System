@@ -8,6 +8,13 @@ public class WithdrawCommandValidator {
 	}
 
 	public boolean validate(String str) {
-		return true;
+		String[] parts = str.stripTrailing().split(" ");
+
+		return checkWithdrawHasAllArguments(parts);
 	}
+
+	public boolean checkWithdrawHasAllArguments(String[] parts) {
+		return parts.length == 3;
+	}
+
 }
