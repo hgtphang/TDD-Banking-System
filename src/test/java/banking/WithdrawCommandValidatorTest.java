@@ -40,4 +40,11 @@ public class WithdrawCommandValidatorTest {
 		boolean actual = commandValidator.validate("WITHDRAW");
 		assertFalse(actual);
 	}
+
+	@Test
+	void withdraw_more_than_allowed_from_checking_account_is_invalid() {
+		boolean actual = commandValidator.validate("withdraw 12345678 500");
+		assertFalse(actual);
+	}
+
 }
