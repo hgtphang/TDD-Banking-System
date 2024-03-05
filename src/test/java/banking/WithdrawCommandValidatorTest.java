@@ -1,5 +1,6 @@
 package banking;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,5 +21,11 @@ public class WithdrawCommandValidatorTest {
 	void a_valid_withdraw_command() {
 		boolean actual = commandValidator.validate("withdraw 12345678 200");
 		assertTrue(actual);
+	}
+
+	@Test
+	void withdraw_has_missing_id_is_invalid() {
+		boolean actual = commandValidator.validate("withdraw 200");
+		assertFalse(actual);
 	}
 }
