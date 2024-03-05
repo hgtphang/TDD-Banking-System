@@ -10,11 +10,40 @@ public class WithdrawCommandValidator {
 	public boolean validate(String str) {
 		String[] parts = str.stripTrailing().split(" ");
 
-		return checkWithdrawHasAllArguments(parts);
+		if (checkWithdrawHasAllArguments(parts)) {
+
+			if (isCheckingAccount(parts)) {
+				return checkWithdrawFromCheckingAccount(parts);
+			} else if (isSavingsAccount(parts)) {
+				return checkWithdrawFromSavingsAccount(parts);
+			}
+		}
+
+		return false;
 	}
 
 	public boolean checkWithdrawHasAllArguments(String[] parts) {
 		return parts.length == 3;
+	}
+
+	public boolean isCheckingAccount(String[] parts) {
+		Account account = bank.getAccounts().get(parts[1]);
+		return account instanceof CheckingAccount;
+	}
+
+	public boolean isSavingsAccount(String[] parts) {
+		Account account = bank.getAccounts().get(parts[1]);
+		return account instanceof SavingsAccount;
+	}
+
+	public boolean checkWithdrawFromCheckingAccount(String[] parts) {
+		double amount = Double.parseDouble(parts[2]);
+		return (amount != -1) && (amount <= 400);
+	}
+
+	public boolean checkWithdrawFromSavingsAccount(String[] parts) {
+		double amount = Double.parseDouble(parts[2]);
+		return (amount != -1) && (amount <= 1000);
 	}
 
 }
