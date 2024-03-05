@@ -34,4 +34,10 @@ public class WithdrawCommandValidatorTest {
 		boolean actual = commandValidator.validate("withdraw 12345678");
 		assertFalse(actual);
 	}
+
+	@Test
+	void withdraw_has_missing_id_and_amount_is_invalid() {
+		boolean actual = commandValidator.validate("WITHDRAW");
+		assertFalse(actual);
+	}
 }
