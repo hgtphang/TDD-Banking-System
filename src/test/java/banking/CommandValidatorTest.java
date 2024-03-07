@@ -84,4 +84,28 @@ public class CommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void transfer_command_is_valid() {
+		boolean actual = commandValidator.validate("transfer 12345678 23456789 200");
+		assertTrue(actual);
+	}
+
+	@Test
+	void transfer_command_has_missing_transfer_is_invalid() {
+		boolean actual = commandValidator.validate("12345678 23456789 200");
+		assertFalse(actual);
+	}
+
+	@Test
+	void transfer_command_has_transfer_in_cap_is_valid() {
+		boolean actual = commandValidator.validate("TRANSFER 12345678 23456789 200");
+		assertTrue(actual);
+	}
+
+	@Test
+	void transfer_command_has_wrong_transfer_command_is_invalid() {
+		boolean actual = commandValidator.validate("trans$fer 12345678 23456789 200");
+		assertFalse(actual);
+	}
+
 }
