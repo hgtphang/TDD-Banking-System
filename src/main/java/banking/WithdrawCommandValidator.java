@@ -40,12 +40,12 @@ public class WithdrawCommandValidator {
 
 	public boolean checkWithdrawFromCheckingAccount(String[] parts) {
 		double amount = Double.parseDouble(parts[2]);
-		return (amount != -1) && (amount <= 400);
+		return (amount >= 0) && (amount <= 400);
 	}
 
 	public boolean checkWithdrawFromSavingsAccount(String[] parts) {
 		double amount = Double.parseDouble(parts[2]);
-		return (amount != -1) && (amount <= 1000);
+		return (amount >= 0) && (amount <= 1000);
 	}
 
 }
