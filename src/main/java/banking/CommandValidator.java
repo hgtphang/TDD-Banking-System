@@ -20,6 +20,9 @@ class CommandValidator {
 		} else if (parts[0].equalsIgnoreCase("withdraw")) {
 			WithdrawCommandValidator withdrawCommandValidator = new WithdrawCommandValidator(bank);
 			return withdrawCommandValidator.validate(str);
+		} else if (parts[0].equalsIgnoreCase("transfer")) {
+			TransferCommandValidator transferCommandValidator = new TransferCommandValidator(bank);
+			return transferCommandValidator.validate(str);
 		} else {
 			return false;
 		}
