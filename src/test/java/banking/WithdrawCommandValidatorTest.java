@@ -56,4 +56,11 @@ public class WithdrawCommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void withdraw_zero_amount_is_valid() {
+		bank.createSavingsAccount(12345678, 1.3);
+		boolean actual = commandValidator.validate("withdraw 12345678 0");
+		assertTrue(actual);
+	}
+
 }
