@@ -112,4 +112,28 @@ public class CommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void pass_time_command_is_valid() {
+		boolean actual = commandValidator.validate("pass 5");
+		assertTrue(actual);
+	}
+
+	@Test
+	void pass_time_command_in_cap_is_valid() {
+		boolean actual = commandValidator.validate("PaSS 1");
+		assertTrue(actual);
+	}
+
+	@Test
+	void pass_time_command_has_unexpected_word_is_invalid() {
+		boolean actual = commandValidator.validate("pa$$ 2");
+		assertFalse(actual);
+	}
+
+	@Test
+	void pass_time_command_has_missing_pass_is_invalid() {
+		boolean actual = commandValidator.validate("10");
+		assertFalse(actual);
+	}
+
 }
