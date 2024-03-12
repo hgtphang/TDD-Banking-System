@@ -23,6 +23,9 @@ class CommandValidator {
 		} else if (parts[0].equalsIgnoreCase("transfer")) {
 			TransferCommandValidator transferCommandValidator = new TransferCommandValidator(bank);
 			return transferCommandValidator.validate(str);
+		} else if (parts[0].equalsIgnoreCase("pass")) {
+			PassCommandValidator passCommandValidator = new PassCommandValidator(bank);
+			return passCommandValidator.validate(str);
 		} else {
 			return false;
 		}
