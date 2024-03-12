@@ -86,6 +86,8 @@ public class CommandValidatorTest {
 
 	@Test
 	void transfer_command_is_valid() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createSavingsAccount(23456789, 2.1);
 		boolean actual = commandValidator.validate("transfer 12345678 23456789 200");
 		assertTrue(actual);
 	}
@@ -98,6 +100,8 @@ public class CommandValidatorTest {
 
 	@Test
 	void transfer_command_has_transfer_in_cap_is_valid() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createSavingsAccount(23456789, 2.1);
 		boolean actual = commandValidator.validate("TRANSFER 12345678 23456789 200");
 		assertTrue(actual);
 	}
