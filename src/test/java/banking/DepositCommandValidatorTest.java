@@ -82,4 +82,18 @@ public class DepositCommandValidatorTest {
 		boolean actual = commandValidator.validate("deposit 12345678 0");
 		assertTrue(actual);
 	}
+
+	@Test
+	void deposit_checking_has_amount_equals_allowed_amount() {
+		bank.createCheckingAccount(12345678, 0.1);
+		boolean actual = commandValidator.validate("deposit 12345678 1000");
+		assertTrue(actual);
+	}
+
+	@Test
+	void deposit_savings_has_amount_equals_allowed_amount() {
+		bank.createSavingsAccount(23456789, 0.1);
+		boolean actual = commandValidator.validate("deposit 23456789 2500");
+		assertTrue(actual);
+	}
 }
