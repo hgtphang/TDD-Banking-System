@@ -99,6 +99,15 @@ public class AccountTest {
 	}
 
 	@Test
+	public void withdraw_amount_equals_balance() {
+		checkingAccount.deposit(500.00);
+		checkingAccount.withdraw(500.00);
+		double actual = checkingAccount.getBalance();
+
+		assertEquals(0.00, actual);
+	}
+
+	@Test
 	public void deposit_twice_works_as_expected() {
 		checkingAccount.deposit(200.00);
 		checkingAccount.deposit(300.00);
