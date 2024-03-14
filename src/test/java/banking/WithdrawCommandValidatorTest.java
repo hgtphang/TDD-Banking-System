@@ -69,4 +69,33 @@ public class WithdrawCommandValidatorTest {
 		boolean actual = commandValidator.validate("withdraw 12345678 -200");
 		assertFalse(actual);
 	}
+
+	@Test
+	void withdraw_a_right_amount_from_checking_account_is_valid() {
+		bank.createCheckingAccount(12345678, 2.3);
+		boolean actual = commandValidator.validate("withdraw 12345678 300");
+		assertTrue(actual);
+	}
+
+	@Test
+	void withdraw_a_right_amount_from_savings_account_is_valid() {
+		bank.createSavingsAccount(23456789, 3.2);
+		boolean actual = commandValidator.validate("withdraw 23456789 900");
+		assertTrue(actual);
+	}
+
+	@Test
+	void withdraw_from_savings_account_which_not_exists_is_invalid() {
+		bank.createCheckingAccount(12345678, 1.3);
+		boolean actual = commandValidator.validate("withdraw 23456789 200");
+		assertFalse(actual);
+	}
+
+	@Test
+	void withdraw_from_checking_account_which_not_exists_is_invalid() {
+		bank.createSavingsAccount(23456789, 1.3);
+		boolean actual = commandValidator.validate("withdraw 12345678 200");
+		assertFalse(actual);
+	}
+
 }
