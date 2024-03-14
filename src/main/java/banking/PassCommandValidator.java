@@ -14,7 +14,7 @@ public class PassCommandValidator {
 
 			if (checkPassCommandHasRightMonths(parts)) {
 				int month = Integer.parseInt(parts[1]);
-				return (month > 0) || (month < 61);
+				return (month > 0) && (month < 61);
 			}
 		}
 
