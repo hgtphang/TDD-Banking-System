@@ -33,7 +33,7 @@ public abstract class Account {
 	}
 
 	public void withdraw(double withdrawAmount) {
-		if (withdrawAmount > balance) {
+		if (withdrawAmount >= balance) {
 			balance = 0;
 		} else {
 			balance -= withdrawAmount;
