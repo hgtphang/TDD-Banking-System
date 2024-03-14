@@ -26,7 +26,7 @@ public class DepositCommandValidator {
 	}
 
 	public boolean checkAmountIsNotNegative(String[] parts) {
-		return Double.parseDouble(parts[2]) > 0;
+		return Double.parseDouble(parts[2]) >= 0;
 	}
 
 	public boolean checkAccountIdIsValid(String[] parts) {

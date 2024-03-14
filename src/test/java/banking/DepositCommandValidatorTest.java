@@ -76,4 +76,10 @@ public class DepositCommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void deposit_zero_amount_to_an_account() {
+		bank.createCheckingAccount(12345678, 0.1);
+		boolean actual = commandValidator.validate("deposit 12345678 0");
+		assertTrue(actual);
+	}
 }
