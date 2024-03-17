@@ -21,8 +21,8 @@ public class CommandProcessor {
 			WithdrawCommandProcessor withdrawCommandProcessor = new WithdrawCommandProcessor(bank);
 			withdrawCommandProcessor.withdrawHandler(parts);
 		} else if (parts[0].equalsIgnoreCase("transfer")) {
-			WithdrawCommandProcessor withdrawCommandProcessor = new WithdrawCommandProcessor(bank);
-			withdrawCommandProcessor.withdrawHandler(parts);
+			TransferCommandProcessor transferCommandProcessor = new TransferCommandProcessor(bank);
+			transferCommandProcessor.transferHandler(parts);
 		}
 	}
 
