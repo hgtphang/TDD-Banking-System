@@ -20,7 +20,7 @@ public class CommandProcessorTest {
 		commandProcessor.handle("create checking 12345678 0.01");
 
 		assertEquals(12345678, bank.getAccounts().get(12345678).getId());
-		assertEquals(0.01, bank.getAccounts().get(12345678).getAPR());
+		assertEquals(0.01, bank.getAccountById(12345678).getAPR());
 	}
 
 	@Test
@@ -28,16 +28,16 @@ public class CommandProcessorTest {
 		commandProcessor.handle("create savings 2345678 0.02");
 
 		assertEquals(2345678, bank.getAccounts().get(2345678).getId());
-		assertEquals(0.02, bank.getAccounts().get(2345678).getAPR());
+		assertEquals(0.02, bank.getAccountById(2345678).getAPR());
 	}
 
 	@Test
 	void create_cd_account() {
 		commandProcessor.handle("create cd 3456789 0.03 1000");
 
-		assertEquals(3456789, bank.getAccounts().get(3456789).getId());
-		assertEquals(0.03, bank.getAccounts().get(3456789).getAPR());
-		assertEquals(1000.00, bank.getAccounts().get(3456789).getBalance());
+		assertEquals(3456789, bank.getAccountById(3456789).getId());
+		assertEquals(0.03, bank.getAccountById(3456789).getAPR());
+		assertEquals(1000.00, bank.getAccountById(3456789).getBalance());
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class CommandProcessorTest {
 
 		commandProcessor.handle("deposit 12345678 200");
 
-		assertEquals(200, bank.getAccounts().get(12345678).getBalance());
+		assertEquals(200, bank.getAccountById(12345678).getBalance());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class CommandProcessorTest {
 
 		commandProcessor.handle("deposit 12345678 100");
 
-		assertEquals(150, bank.getAccounts().get(12345678).getBalance());
+		assertEquals(150, bank.getAccountById(12345678).getBalance());
 	}
 
 	@Test
@@ -66,7 +66,7 @@ public class CommandProcessorTest {
 
 		commandProcessor.handle("deposit 23456789 1000.23");
 
-		assertEquals(1000.23, bank.getAccounts().get(23456789).getBalance());
+		assertEquals(1000.23, bank.getAccountById(23456789).getBalance());
 	}
 
 	@Test
@@ -77,6 +77,17 @@ public class CommandProcessorTest {
 
 		commandProcessor.handle("deposit 23456788 100");
 
-		assertEquals(159.5, bank.getAccounts().get(23456788).getBalance());
+		assertEquals(159.5, bank.getAccountById(23456788).getBalance());
+	}
+
+	@Test
+	void withdraw_from_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		Account account = bank.getAccountById(12345678);
+		account.deposit(100);
+
+		commandProcessor.handle("withdraw 12345678 50");
+
+		assertEquals(50, bank.getAccountById(12345678).getBalance());
 	}
 }
