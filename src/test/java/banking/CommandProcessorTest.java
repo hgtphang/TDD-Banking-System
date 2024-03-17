@@ -90,4 +90,71 @@ public class CommandProcessorTest {
 
 		assertEquals(50, bank.getAccountById(12345678).getBalance());
 	}
+
+	@Test
+	void withdraw_zero_amount_from_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		Account account = bank.getAccountById(12345678);
+		account.deposit(100);
+
+		commandProcessor.handle("withdraw 12345678 0");
+
+		assertEquals(100, bank.getAccountById(12345678).getBalance());
+	}
+
+	@Test
+	void withdraw_twice_from_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		Account account = bank.getAccountById(12345678);
+		account.deposit(100);
+
+		commandProcessor.handle("withdraw 12345678 50");
+		commandProcessor.handle("withdraw 12345678 20");
+
+		assertEquals(30, bank.getAccountById(12345678).getBalance());
+	}
+
+	@Test
+	void withdraw_from_savings_account() {
+		bank.createSavingsAccount(23456789, 2.1);
+		Account account = bank.getAccountById(23456789);
+		account.deposit(200);
+
+		commandProcessor.handle("withdraw 23456789 50");
+
+		assertEquals(150, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void withdraw_zero_amount_from_savings_account() {
+		bank.createSavingsAccount(23456789, 2.1);
+		Account account = bank.getAccountById(23456789);
+		account.deposit(300);
+
+		commandProcessor.handle("withdraw 23456789 0");
+
+		assertEquals(300, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void withdraw_twice_from_savings_account() {
+		bank.createSavingsAccount(23456789, 2.1);
+		Account account = bank.getAccountById(23456789);
+		account.deposit(400);
+
+		commandProcessor.handle("withdraw 23456789 20");
+		commandProcessor.handle("withdraw 23456789 50");
+
+		assertEquals(330, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void withdraw_from_cd_account() {
+		bank.createCDAccount(34567891, 3.2, 5000);
+
+		commandProcessor.handle("withdraw 34567891 5000");
+
+		assertEquals(0, bank.getAccountById(34567891).getBalance());
+	}
+
 }
