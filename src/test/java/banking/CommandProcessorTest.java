@@ -1,6 +1,7 @@
 package banking;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -269,4 +270,12 @@ public class CommandProcessorTest {
 		assertEquals(140, bank.getAccountById(23456789).getBalance());
 	}
 
+	@Test
+	void pass_one_month_when_balance_equals_zero() {
+		bank.createCheckingAccount(12345678, 1.2);
+
+		commandProcessor.handle("pass 1");
+
+		assertNull(bank.getAccountById(12345678));
+	}
 }
