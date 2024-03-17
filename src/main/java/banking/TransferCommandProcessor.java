@@ -8,5 +8,10 @@ public class TransferCommandProcessor {
 	}
 
 	public void transferHandler(String[] parts) {
+		int fromAccountID = Integer.parseInt(parts[1]);
+		int toAccountID = Integer.parseInt(parts[2]);
+
+		double amount = Double.parseDouble(parts[3]);
+		bank.transferById(fromAccountID, toAccountID, amount);
 	}
 }
