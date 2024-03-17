@@ -126,4 +126,47 @@ public class WithdrawCommandValidatorTest {
 		assertFalse(actual);
 	}
 
+	@Test
+	void withdraw_from_savings_account_already_withdrawn_is_invalid() {
+		bank.createSavingsAccount(23456789, 2.1);
+		bank.getAccountById(23456789).withdraw(200);
+
+		boolean actual = commandValidator.validate("withdraw 23456789 100");
+
+		assertFalse(actual);
+	}
+
+	@Test
+	void withdraw_from_savings_account_pass_1_month_is_valid() {
+		bank.createSavingsAccount(23456789, 2.1);
+		bank.getAccountById(23456789).withdraw(200);
+		bank.getAccountById(23456789).pass(1);
+
+		boolean actual = commandValidator.validate("withdraw 23456789 100");
+
+		assertTrue(actual);
+	}
+
+	@Test
+	void withdraw_from_cd_account_pass_3_month_is_invalid() {
+		bank.createCDAccount(23456789, 3.1, 2000);
+		bank.getAccountById(23456789).withdraw(1000);
+		bank.getAccountById(23456789).pass(3);
+
+		boolean actual = commandValidator.validate("withdraw 23456789 1000");
+
+		assertFalse(actual);
+	}
+
+	@Test
+	void withdraw_from_cd_account_pass_12_month_is_valid() {
+		bank.createCDAccount(23456789, 3.1, 2000);
+		bank.getAccountById(23456789).withdraw(1000);
+		bank.getAccountById(23456789).pass(12);
+
+		boolean actual = commandValidator.validate("withdraw 23456789 1000");
+
+		assertTrue(actual);
+	}
+
 }
