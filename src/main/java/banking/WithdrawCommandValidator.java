@@ -16,6 +16,8 @@ public class WithdrawCommandValidator {
 				return checkWithdrawFromCheckingAccount(parts);
 			} else if (isSavingsAccount(parts)) {
 				return checkWithdrawFromSavingsAccount(parts);
+			} else if (isCDAccount(parts)) {
+				return checkWithdrawFromCDAccount(parts);
 			}
 		}
 
@@ -38,6 +40,12 @@ public class WithdrawCommandValidator {
 		return account instanceof SavingsAccount;
 	}
 
+	public boolean isCDAccount(String[] parts) {
+		int accountID = Integer.parseInt(parts[1]);
+		Account account = bank.getAccounts().get(accountID);
+		return account instanceof CDAccount;
+	}
+
 	public boolean checkWithdrawFromCheckingAccount(String[] parts) {
 		double amount = Double.parseDouble(parts[2]);
 		return (amount >= 0) && (amount <= 400);
@@ -45,7 +53,24 @@ public class WithdrawCommandValidator {
 
 	public boolean checkWithdrawFromSavingsAccount(String[] parts) {
 		double amount = Double.parseDouble(parts[2]);
+		int accountID = Integer.parseInt(parts[1]);
+
+		if (bank.getAccountById(accountID).alreadyWithdrawn == true) {
+			return false;
+		}
+
 		return (amount >= 0) && (amount <= 1000);
+	}
+
+	public boolean checkWithdrawFromCDAccount(String[] parts) {
+		double amount = Double.parseDouble(parts[2]);
+		int accountID = Integer.parseInt(parts[1]);
+
+		if (bank.getAccountById(accountID).alreadyWithdrawn == true) {
+			return false;
+		}
+
+		return (amount >= bank.getAccountById(accountID).getBalance());
 	}
 
 }
