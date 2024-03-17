@@ -58,20 +58,24 @@ public class Bank {
 	public void pass(int months) {
 		for (int i = 0; i < months; i++) {
 			for (Account account : accounts.values()) {
+				// remove account when balance = 0
 				if (account.getBalance() == 0) {
 					accounts.remove(account.getId());
 					continue;
 				}
 
+				// deduct $25 when balance < 100
 				if (account.getBalance() < 100) {
-					account.withdraw(25);
+					account.withdraw(25.00);
 				}
 
+				// calculate apr
 				double apr = account.getAPR();
 				double monthlyAPR = (apr / 100) / 12;
 				double interest = account.getBalance() * monthlyAPR;
 				account.deposit(interest);
 
+				// add more 3 times if a cd account
 				if (account instanceof CDAccount) {
 					for (int j = 0; j < 3; j++) {
 						double cdInterest = account.getBalance() * monthlyAPR;
