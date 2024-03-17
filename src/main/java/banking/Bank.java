@@ -46,4 +46,12 @@ public class Bank {
 		Account account = accounts.get(accountId);
 		account.withdraw(amount);
 	}
+
+	public void transferById(int fromAccountID, int toAccountID, double amount) {
+		Account fromAccount = accounts.get(fromAccountID);
+		Account toAccount = accounts.get(toAccountID);
+
+		fromAccount.withdraw(amount);
+		toAccount.deposit(amount);
+	}
 }
