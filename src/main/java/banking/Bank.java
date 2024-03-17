@@ -54,4 +54,32 @@ public class Bank {
 		fromAccount.withdraw(amount);
 		toAccount.deposit(amount);
 	}
+
+	public void pass(int months) {
+		for (int i = 0; i < months; i++) {
+			for (Account account : accounts.values()) {
+				if (account.getBalance() == 0) {
+					accounts.remove(account.getId());
+					continue;
+				}
+
+				if (account.getBalance() < 100) {
+					account.withdraw(25);
+				}
+
+				double apr = account.getAPR();
+				double monthlyAPR = (apr / 100) / 12;
+				double interest = account.getBalance() * monthlyAPR;
+				account.deposit(interest);
+
+				if (account instanceof CDAccount) {
+					for (int j = 0; j < 3; j++) {
+						double cdInterest = account.getBalance() * monthlyAPR;
+						account.deposit(cdInterest);
+					}
+				}
+			}
+		}
+	}
+
 }
