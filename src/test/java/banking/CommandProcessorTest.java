@@ -157,4 +157,17 @@ public class CommandProcessorTest {
 		assertEquals(0, bank.getAccountById(34567891).getBalance());
 	}
 
+	@Test
+	void transfer_from_checking_to_savings_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createSavingsAccount(23456789, 2.1);
+
+		bank.depositById(12345678, 200);
+
+		commandProcessor.handle("transfer 12345678 23456789 150");
+
+		assertEquals(50, bank.getAccountById(12345678).getBalance());
+		assertEquals(150, bank.getAccountById(23456789).getBalance());
+	}
+
 }
