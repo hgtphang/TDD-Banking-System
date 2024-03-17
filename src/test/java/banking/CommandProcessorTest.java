@@ -278,4 +278,43 @@ public class CommandProcessorTest {
 
 		assertNull(bank.getAccountById(12345678));
 	}
+
+	@Test
+	void pass_one_month_when_balance_below_100() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.getAccountById(12345678).deposit(50);
+
+		commandProcessor.handle("pass 1");
+
+		assertEquals(25.025, bank.getAccountById(12345678).getBalance());
+	}
+
+	@Test
+	void pass_one_month_when_balance_above_100() {
+		bank.createCheckingAccount(12345678, 3);
+		bank.getAccountById(12345678).deposit(1000);
+
+		commandProcessor.handle("pass 1");
+
+		assertEquals(1002.5, bank.getAccountById(12345678).getBalance());
+	}
+
+	@Test
+	void pass_two_month_when_balance_above_100() {
+		bank.createCheckingAccount(12345678, 3);
+		bank.getAccountById(12345678).deposit(1000);
+
+		commandProcessor.handle("pass 2");
+
+		assertEquals(1005.01, bank.getAccountById(12345678).getBalance(), 2);
+	}
+
+	@Test
+	void cd_account_pass_one_month_when_balance_above_100() {
+		bank.createCDAccount(12345678, 2.1, 2000);
+
+		commandProcessor.handle("pass 1");
+
+		assertEquals(2014.04, bank.getAccountById(12345678).getBalance(), 2);
+	}
 }
