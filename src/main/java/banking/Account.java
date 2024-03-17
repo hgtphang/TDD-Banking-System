@@ -29,14 +29,14 @@ public abstract class Account {
 	}
 
 	public void deposit(double depositAmount) {
-		balance += depositAmount;
+		this.balance += depositAmount;
 	}
 
 	public void withdraw(double withdrawAmount) {
-		if (withdrawAmount >= balance) {
-			balance = 0;
+		if (withdrawAmount >= this.balance) {
+			this.balance = 0;
 		} else {
-			balance -= withdrawAmount;
+			this.balance -= withdrawAmount;
 		}
 	}
 }
