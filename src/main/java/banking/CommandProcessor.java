@@ -23,7 +23,9 @@ public class CommandProcessor {
 		} else if (parts[0].equalsIgnoreCase("transfer")) {
 			TransferCommandProcessor transferCommandProcessor = new TransferCommandProcessor(bank);
 			transferCommandProcessor.transferHandler(parts);
+		} else if (parts[0].equalsIgnoreCase("pass")) {
+			PassCommandProcessor passCommandProcessor = new PassCommandProcessor(bank);
+			passCommandProcessor.passHandler(parts);
 		}
 	}
-
 }
