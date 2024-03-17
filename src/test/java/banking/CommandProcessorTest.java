@@ -170,4 +170,103 @@ public class CommandProcessorTest {
 		assertEquals(150, bank.getAccountById(23456789).getBalance());
 	}
 
+	@Test
+	void transfer_from_savings_to_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createSavingsAccount(23456789, 2.1);
+
+		bank.depositById(23456789, 500);
+
+		commandProcessor.handle("transfer 23456789 12345678 100");
+
+		assertEquals(100, bank.getAccountById(12345678).getBalance());
+		assertEquals(400, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void transfer_from_checking_to_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createCheckingAccount(23456789, 1.3);
+
+		bank.depositById(12345678, 100);
+		bank.depositById(23456789, 200);
+
+		commandProcessor.handle("transfer 12345678 23456789 100");
+
+		assertEquals(0, bank.getAccountById(12345678).getBalance());
+		assertEquals(300, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void transfer_from_savings_to_savings_account() {
+		bank.createSavingsAccount(12345678, 2.1);
+		bank.createSavingsAccount(23456789, 3.1);
+
+		bank.depositById(12345678, 50);
+		bank.depositById(23456789, 100);
+
+		commandProcessor.handle("transfer 12345678 23456789 20");
+
+		assertEquals(30, bank.getAccountById(12345678).getBalance());
+		assertEquals(120, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void transfer_twice_from_checking_to_savings_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createSavingsAccount(23456789, 2.1);
+
+		bank.depositById(12345678, 200);
+
+		commandProcessor.handle("transfer 12345678 23456789 50");
+		commandProcessor.handle("transfer 12345678 23456789 70");
+
+		assertEquals(80, bank.getAccountById(12345678).getBalance());
+		assertEquals(120, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void transfer_twice_from_savings_to_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createSavingsAccount(23456789, 2.1);
+
+		bank.depositById(23456789, 500);
+
+		commandProcessor.handle("transfer 23456789 12345678 100");
+		commandProcessor.handle("transfer 23456789 12345678 200");
+
+		assertEquals(300, bank.getAccountById(12345678).getBalance());
+		assertEquals(200, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void transfer_twice_from_checking_to_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		bank.createCheckingAccount(23456789, 1.3);
+
+		bank.depositById(12345678, 100);
+		bank.depositById(23456789, 200);
+
+		commandProcessor.handle("transfer 12345678 23456789 30");
+		commandProcessor.handle("transfer 12345678 23456789 20");
+
+		assertEquals(50, bank.getAccountById(12345678).getBalance());
+		assertEquals(250, bank.getAccountById(23456789).getBalance());
+	}
+
+	@Test
+	void transfer_twice_from_savings_to_savings_account() {
+		bank.createSavingsAccount(12345678, 2.1);
+		bank.createSavingsAccount(23456789, 3.1);
+
+		bank.depositById(12345678, 50);
+		bank.depositById(23456789, 100);
+
+		commandProcessor.handle("transfer 12345678 23456789 20");
+		commandProcessor.handle("transfer 12345678 23456789 20");
+
+		assertEquals(10, bank.getAccountById(12345678).getBalance());
+		assertEquals(140, bank.getAccountById(23456789).getBalance());
+	}
+
 }
