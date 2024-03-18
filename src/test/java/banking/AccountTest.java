@@ -1,3 +1,5 @@
+package banking;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -91,6 +93,15 @@ public class AccountTest {
 	public void cannot_withdraw_below_zero_balance() {
 		checkingAccount.deposit(500.00);
 		checkingAccount.withdraw(600.00);
+		double actual = checkingAccount.getBalance();
+
+		assertEquals(0.00, actual);
+	}
+
+	@Test
+	public void withdraw_amount_equals_balance() {
+		checkingAccount.deposit(500.00);
+		checkingAccount.withdraw(500.00);
 		double actual = checkingAccount.getBalance();
 
 		assertEquals(0.00, actual);
