@@ -1,21 +1,13 @@
 package banking;
 
 public class PassCommandValidator {
-	private final Bank bank;
-
-	public PassCommandValidator(Bank bank) {
-		this.bank = bank;
-	}
 
 	public boolean validate(String str) {
 		String[] parts = str.stripTrailing().split(" ");
 
-		if (checkPassCommandHasAllArguments(parts)) {
-
-			if (checkPassCommandHasRightMonths(parts)) {
-				int month = Integer.parseInt(parts[1]);
-				return (month > 0) && (month < 61);
-			}
+		if (checkPassCommandHasAllArguments(parts) && checkPassCommandHasRightMonths(parts)) {
+			int month = Integer.parseInt(parts[1]);
+			return (month > 0) && (month < 61);
 		}
 
 		return false;

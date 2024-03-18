@@ -12,12 +12,12 @@ public abstract class Account {
 	protected int age = 0;
 	protected List<String> transactions = new ArrayList<>();
 
-	public Account(int id, double apr) {
+	protected Account(int id, double apr) {
 		this.id = id;
 		this.apr = apr;
 	}
 
-	public Account(int id, double apr, double balance) {
+	protected Account(int id, double apr, double balance) {
 		this.id = id;
 		this.apr = apr;
 		this.balance = balance;

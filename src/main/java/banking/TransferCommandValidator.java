@@ -10,10 +10,9 @@ public class TransferCommandValidator {
 	public boolean validate(String str) {
 		String[] parts = str.stripTrailing().split(" ");
 
-		if (checkTransferCommandHasFourArguments(parts)) {
-			if (isValidTransfer(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]))) {
-				return true;
-			}
+		if (checkTransferCommandHasFourArguments(parts)
+				&& isValidTransfer(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]))) {
+			return true;
 		}
 
 		return false;

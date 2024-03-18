@@ -13,7 +13,7 @@ public class PassCommandValidatorTest {
 	@BeforeEach
 	void setUp() {
 		bank = new Bank();
-		commandValidator = new PassCommandValidator(bank);
+		commandValidator = new PassCommandValidator();
 	}
 
 	@Test

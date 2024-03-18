@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Output {
 	private CommandStorage commandStorage;
-	private List<String> output;
+	private List<String> outputList;
 	private banking.Bank bank;
 
 	public Output(banking.Bank bank, CommandStorage commandStorage) {
@@ -18,7 +18,7 @@ public class Output {
 	}
 
 	public List<String> getFormattedOutput() {
-		output = new ArrayList<>();
+		outputList = new ArrayList<>();
 		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		decimalFormat.setRoundingMode(RoundingMode.FLOOR);
 
@@ -51,12 +51,12 @@ public class Output {
 
 			// Add account state to output list
 			if (!accountInfo.isEmpty()) {
-				output.add(accountInfo);
+				outputList.add(accountInfo);
 			}
 
 			// Add transactions
 			for (String transaction : currentAccount.getTransactions()) {
-				output.add(transaction);
+				outputList.add(transaction);
 			}
 
 		}
@@ -64,11 +64,11 @@ public class Output {
 		// Add invalid commands
 		if (commandStorage != null) {
 			for (String invalidCommand : commandStorage.getInvalidCommands()) {
-				output.add(invalidCommand);
+				outputList.add(invalidCommand);
 			}
 		}
 
-		return output;
+		return outputList;
 	}
 
 }
