@@ -26,36 +26,36 @@ public class Output {
 		List<banking.Account> sortedAccounts = new ArrayList<>(bank.getAccounts().values());
 		Collections.sort(sortedAccounts, Comparator.comparingInt(banking.Account::getId));
 
-		for (Account currAccount : sortedAccounts) {
-			String accountState = "";
+		for (Account currentAccount : sortedAccounts) {
+			String accountInfo = "";
 
 			// Add account's current state string
-			if (currAccount instanceof SavingsAccount) {
-				accountState = accountState.concat("Savings ");
-			} else if (currAccount instanceof CheckingAccount) {
-				accountState = accountState.concat("Checking ");
-			} else if (currAccount instanceof CDAccount) {
-				accountState = accountState.concat("Cd ");
+			if (currentAccount instanceof SavingsAccount) {
+				accountInfo = accountInfo.concat("Savings ");
+			} else if (currentAccount instanceof CheckingAccount) {
+				accountInfo = accountInfo.concat("Checking ");
+			} else if (currentAccount instanceof CDAccount) {
+				accountInfo = accountInfo.concat("Cd ");
 			}
 
 			// Add account ID, balance, and APR
-			accountState = accountState.concat(String.valueOf(currAccount.getId()));
-			accountState = accountState.concat(" ");
+			accountInfo = accountInfo.concat(String.valueOf(currentAccount.getId()));
+			accountInfo = accountInfo.concat(" ");
 
-			String roundedBalance = decimalFormat.format(currAccount.getBalance());
-			accountState = accountState.concat(roundedBalance);
-			accountState = accountState.concat(" ");
+			String roundedBalance = decimalFormat.format(currentAccount.getBalance());
+			accountInfo = accountInfo.concat(roundedBalance);
+			accountInfo = accountInfo.concat(" ");
 
-			String roundedApr = decimalFormat.format(currAccount.getAPR());
-			accountState = accountState.concat(roundedApr);
+			String roundedApr = decimalFormat.format(currentAccount.getAPR());
+			accountInfo = accountInfo.concat(roundedApr);
 
 			// Add account state to output list
-			if (!accountState.isEmpty()) {
-				output.add(accountState);
+			if (!accountInfo.isEmpty()) {
+				output.add(accountInfo);
 			}
 
 			// Add transactions
-			for (String transaction : currAccount.getTransactions()) {
+			for (String transaction : currentAccount.getTransactions()) {
 				output.add(transaction);
 			}
 

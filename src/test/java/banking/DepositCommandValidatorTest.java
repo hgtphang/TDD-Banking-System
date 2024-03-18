@@ -103,4 +103,33 @@ public class DepositCommandValidatorTest {
 		boolean actual = commandValidator.validate("Deposit 12345678 5000");
 		assertFalse(actual);
 	}
+
+	@Test
+	void deposit_into_account_with_zero_apr_is_valid() {
+		bank.createCheckingAccount(123456789, 0.0);
+		boolean actual = commandValidator.validate("deposit 123456789 100");
+		assertTrue(actual);
+	}
+
+	@Test
+	void deposit_maximum_allowed_amount_into_checking_account_is_valid() {
+		bank.createCheckingAccount(123456789, 0.1);
+		boolean actual = commandValidator.validate("deposit 123456789 1000");
+		assertTrue(actual);
+	}
+
+	@Test
+	void deposit_amount_greater_than_maximum_allowed_is_invalid() {
+		bank.createCheckingAccount(123456789, 0.1);
+		boolean actual = commandValidator.validate("deposit 123456789 1001");
+		assertFalse(actual);
+	}
+
+	@Test
+	void deposit_decimal_amount_into_account_is_valid() {
+		bank.createCheckingAccount(123456789, 0.1);
+		boolean actual = commandValidator.validate("deposit 123456789 100.50");
+		assertTrue(actual);
+	}
+
 }
