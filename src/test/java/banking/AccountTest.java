@@ -125,4 +125,14 @@ public class AccountTest {
 
 		assertEquals(200.00, actual);
 	}
+
+	@Test
+	public void withdraw_amount_greater_than_balance_sets_balance_to_zero() {
+		checkingAccount.deposit(200.00);
+		checkingAccount.withdraw(300.00);
+		double actual = checkingAccount.getBalance();
+
+		assertEquals(0.00, actual);
+	}
+
 }

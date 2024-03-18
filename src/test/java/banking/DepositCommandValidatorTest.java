@@ -132,4 +132,52 @@ public class DepositCommandValidatorTest {
 		assertTrue(actual);
 	}
 
+	@Test
+	void isCheckingAccount_returns_true_for_valid_account_id_but_not_a_checking_account() {
+		bank.createSavingsAccount(987654321, 0.05);
+		boolean actual = commandValidator.isCheckingAccount(new String[] { "deposit", "987654321", "100" });
+		assertFalse(actual);
+	}
+
+	@Test
+	void isSavingsAccount_returns_true_for_valid_account_id_but_not_a_savings_account() {
+		bank.createCheckingAccount(123456789, 0.1);
+		boolean actual = commandValidator.isSavingsAccount(new String[] { "deposit", "123456789", "100" });
+		assertFalse(actual);
+	}
+
+	@Test
+	void isCheckingAccount_returns_true_for_valid_checking_account_id() {
+		bank.createCheckingAccount(123456789, 0.1);
+		boolean actual = commandValidator.isCheckingAccount(new String[] { "deposit", "123456789", "100" });
+		assertTrue(actual);
+	}
+
+	@Test
+	void isSavingsAccount_returns_true_for_valid_savings_account_id() {
+		bank.createSavingsAccount(987654321, 0.05);
+		boolean actual = commandValidator.isSavingsAccount(new String[] { "deposit", "987654321", "100" });
+		assertTrue(actual);
+	}
+
+	@Test
+	void deposit_has_zero_amount_is_valid() {
+		bank.createSavingsAccount(123456789, 0.05);
+		boolean actual = commandValidator.validate("deposit 123456789 0");
+		assertTrue(actual);
+	}
+
+	@Test
+	void existing_account_id_exists_in_bank() {
+		bank.createCheckingAccount(12345678, 0.1);
+		boolean actual = commandValidator.checkAccountExistsInBank(new String[] { "deposit", "12345678", "100" });
+		assertTrue(actual);
+	}
+
+	@Test
+	void non_existing_account_id_does_not_exist_in_bank() {
+		boolean actual = commandValidator.checkAccountExistsInBank(new String[] { "deposit", "99999999", "100" });
+		assertFalse(actual);
+	}
+
 }
