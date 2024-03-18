@@ -56,7 +56,7 @@ public class DepositCommandProcessorTest {
 	}
 
 	@Test
-	void deposit_twice_to_an_checking_account() {
+	void deposit_twice_to_a_checking_account() {
 		bank.createCheckingAccount(12345678, 1.2);
 
 		commandProcessor.handle("deposit 12345678 300");
@@ -64,4 +64,15 @@ public class DepositCommandProcessorTest {
 
 		assertEquals(500, bank.getAccountById(12345678).getBalance());
 	}
+
+	@Test
+	void deposit_twice_to_a_savings_account() {
+		bank.createSavingsAccount(12345678, 1.2);
+
+		commandProcessor.handle("deposit 12345678 300");
+		commandProcessor.handle("deposit 12345678 200");
+
+		assertEquals(500, bank.getAccountById(12345678).getBalance());
+	}
+
 }

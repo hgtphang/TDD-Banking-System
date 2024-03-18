@@ -40,4 +40,20 @@ public class CreateCommandProcessorTest {
 		assertEquals(1000.00, bank.getAccountById(3456789).getBalance());
 	}
 
+	@Test
+	void create_two_accounts() {
+		commandProcessor.handle("create checking 12345678 1.2");
+		commandProcessor.handle("create savings 23456789 1.3");
+
+		assertEquals(1.2, bank.getAccountById(12345678).getAPR());
+		assertEquals(1.3, bank.getAccountById(23456789).getAPR());
+	}
+
+	@Test
+	void create_an_account_has_upper_letter_in_create_and_account_type() {
+		commandProcessor.handle("creAte cHecKing 98765432 0.01");
+
+		assertEquals(98765432, bank.getAccountById(98765432).getId());
+		assertEquals(0.01, bank.getAccountById(98765432).getAPR());
+	}
 }

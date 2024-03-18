@@ -7,10 +7,13 @@ public class WithdrawCommandProcessor {
 		this.bank = bank;
 	}
 
-	public void withdrawHandler(String[] parts) {
+	public void withdrawHandler(String command) {
+		String[] parts = command.stripTrailing().split(" ");
+
 		int accountID = Integer.parseInt(parts[1]);
 		double amount = Double.parseDouble(parts[2]);
 
 		bank.getAccountById(accountID).withdraw(amount);
+		bank.getAccountById(accountID).addTransactions(command);
 	}
 }

@@ -1,8 +1,8 @@
 package banking;
 
 public class CommandProcessor {
-
 	private final Bank bank;
+	CommandStorage commandStorage;
 
 	public CommandProcessor(Bank bank) {
 		this.bank = bank;
@@ -16,13 +16,13 @@ public class CommandProcessor {
 			createCommandProcessor.createHandler(parts);
 		} else if (parts[0].equalsIgnoreCase("deposit")) {
 			DepositCommandProcessor depositCommandProcessor = new DepositCommandProcessor(bank);
-			depositCommandProcessor.depositHandler(parts);
+			depositCommandProcessor.depositHandler(str);
 		} else if (parts[0].equalsIgnoreCase("withdraw")) {
 			WithdrawCommandProcessor withdrawCommandProcessor = new WithdrawCommandProcessor(bank);
-			withdrawCommandProcessor.withdrawHandler(parts);
+			withdrawCommandProcessor.withdrawHandler(str);
 		} else if (parts[0].equalsIgnoreCase("transfer")) {
 			TransferCommandProcessor transferCommandProcessor = new TransferCommandProcessor(bank);
-			transferCommandProcessor.transferHandler(parts);
+			transferCommandProcessor.transferHandler(str);
 		} else if (parts[0].equalsIgnoreCase("pass")) {
 			PassCommandProcessor passCommandProcessor = new PassCommandProcessor(bank);
 			passCommandProcessor.passHandler(parts);

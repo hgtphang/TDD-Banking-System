@@ -1,11 +1,16 @@
 package banking;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Account {
 	protected boolean alreadyWithdrawn;
-	private int id;
-	private double apr;
-	private double balance;
-	private int age = 0;
+	protected int id;
+	protected double apr;
+	protected double balance;
+	protected String accountType;
+	protected int age = 0;
+	protected List<String> transactions = new ArrayList<>();
 
 	public Account(int id, double apr) {
 		this.id = id;
@@ -18,6 +23,10 @@ public abstract class Account {
 		this.balance = balance;
 	}
 
+	public String getAccountType() {
+		return accountType;
+	}
+
 	public int getAge() {
 		return age;
 	}
@@ -26,7 +35,7 @@ public abstract class Account {
 		this.age += months;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -53,5 +62,13 @@ public abstract class Account {
 
 	public void pass(int months) {
 		setAge(months);
+	}
+
+	public List<String> getTransactions() {
+		return this.transactions;
+	}
+
+	public void addTransactions(String command) {
+		this.transactions.add(command);
 	}
 }

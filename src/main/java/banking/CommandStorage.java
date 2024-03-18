@@ -5,16 +5,26 @@ import java.util.List;
 
 public class CommandStorage {
 	private List<String> invalidCommands;
+	private List<String> validCommands;
 
 	public CommandStorage() {
 		this.invalidCommands = new ArrayList<>();
+		this.validCommands = new ArrayList<>();
 	}
 
-	public void store(String command) {
+	public void addInvalidCommand(String command) {
 		invalidCommands.add(command);
 	}
 
+	public void addValidCommand(String command) {
+		validCommands.add(command);
+	}
+
 	public List<String> getInvalidCommands() {
-		return new ArrayList<>(invalidCommands);
+		return invalidCommands;
+	}
+
+	public List<String> getValidCommands() {
+		return validCommands;
 	}
 }

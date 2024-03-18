@@ -130,4 +130,10 @@ public class CreateCommandValidatorTest {
 		boolean actual = commandValidator.validate("create checking 12345678 2.3 500");
 		assertFalse(actual);
 	}
+
+	@Test
+	void create_has_upper_letter_in_create_and_account_type_is_valid() {
+		boolean actual = commandValidator.validate("creAte cHecKing 98765432 0.01");
+		assertTrue(actual);
+	}
 }

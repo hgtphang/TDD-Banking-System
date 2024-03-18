@@ -96,4 +96,11 @@ public class DepositCommandValidatorTest {
 		boolean actual = commandValidator.validate("deposit 23456789 2500");
 		assertTrue(actual);
 	}
+
+	@Test
+	void cannot_deposit_5000_to_checking_account() {
+		bank.createCheckingAccount(12345678, 1.2);
+		boolean actual = commandValidator.validate("Deposit 12345678 5000");
+		assertFalse(actual);
+	}
 }
