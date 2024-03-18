@@ -11,9 +11,7 @@ public class CreateCommandValidator {
 	public boolean validate(String str) {
 		String[] parts = str.stripTrailing().split(" ");
 
-		if (isValidCheckingOrSavingsAccount(parts)) {
-			return checkAccountIdAndApr(parts);
-		} else if (isValidCDAccount(parts)) {
+		if (isValidCheckingOrSavingsAccount(parts) || isValidCDAccount(parts)) {
 			return checkAccountIdAndApr(parts);
 		}
 

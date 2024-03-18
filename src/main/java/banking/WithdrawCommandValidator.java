@@ -11,12 +11,11 @@ public class WithdrawCommandValidator {
 		String[] parts = str.stripTrailing().split(" ");
 
 		if (checkWithdrawHasAllArguments(parts)) {
-
-			if (isCheckingAccount(parts)) {
+			if (isAccountOfType(parts, CheckingAccount.class)) {
 				return checkWithdrawFromCheckingAccount(parts);
-			} else if (isSavingsAccount(parts)) {
+			} else if (isAccountOfType(parts, SavingsAccount.class)) {
 				return checkWithdrawFromSavingsAccount(parts);
-			} else if (isCDAccount(parts)) {
+			} else if (isAccountOfType(parts, CDAccount.class)) {
 				return checkWithdrawFromCDAccount(parts);
 			}
 		}
@@ -28,22 +27,10 @@ public class WithdrawCommandValidator {
 		return parts.length == 3;
 	}
 
-	public boolean isCheckingAccount(String[] parts) {
+	public boolean isAccountOfType(String[] parts, Class<? extends Account> accountType) {
 		int accountID = Integer.parseInt(parts[1]);
 		Account account = bank.getAccounts().get(accountID);
-		return account instanceof CheckingAccount;
-	}
-
-	public boolean isSavingsAccount(String[] parts) {
-		int accountID = Integer.parseInt(parts[1]);
-		Account account = bank.getAccounts().get(accountID);
-		return account instanceof SavingsAccount;
-	}
-
-	public boolean isCDAccount(String[] parts) {
-		int accountID = Integer.parseInt(parts[1]);
-		Account account = bank.getAccounts().get(accountID);
-		return account instanceof CDAccount;
+		return accountType.isInstance(account);
 	}
 
 	public boolean checkWithdrawFromCheckingAccount(String[] parts) {

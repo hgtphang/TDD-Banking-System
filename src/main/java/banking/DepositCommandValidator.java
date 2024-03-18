@@ -11,17 +11,23 @@ public class DepositCommandValidator {
 		String[] parts = str.stripTrailing().split(" ");
 
 		if (isValidDeposit(parts)) {
-			if (isCheckingAccount(parts)) {
-				return isValidCheckingDeposit(parts);
-			} else if (isSavingsAccount(parts)) {
-				return isValidSavingsDeposit(parts);
-			}
+			return isValidDepositForAccountType(parts);
 		}
+
 		return false;
 	}
 
 	private boolean isValidDeposit(String[] parts) {
 		return checkAccountIdIsValid(parts) && checkAccountExistsInBank(parts) && !checkIfCDAccount(parts);
+	}
+
+	private boolean isValidDepositForAccountType(String[] parts) {
+		if (isCheckingAccount(parts)) {
+			return isValidCheckingDeposit(parts);
+		} else if (isSavingsAccount(parts)) {
+			return isValidSavingsDeposit(parts);
+		}
+		return false;
 	}
 
 	private boolean isValidCheckingDeposit(String[] parts) {
@@ -34,29 +40,21 @@ public class DepositCommandValidator {
 				&& checkDepositSavingsMaximumAllowed(parts);
 	}
 
-	// some functions for validate()
 	public boolean isCheckingAccount(String[] parts) {
-		Account account = bank.getAccounts().get(Integer.parseInt(parts[1]));
-		if (account instanceof CheckingAccount) {
-			return true;
-		}
-		return false;
+		return isAccountOfType(parts, CheckingAccount.class);
 	}
 
 	public boolean isSavingsAccount(String[] parts) {
-		Account account = bank.getAccounts().get(Integer.parseInt(parts[1]));
-		if (account instanceof SavingsAccount) {
-			return true;
-		}
-		return false;
+		return isAccountOfType(parts, SavingsAccount.class);
 	}
 
 	public boolean checkIfCDAccount(String[] parts) {
+		return isAccountOfType(parts, CDAccount.class);
+	}
+
+	public boolean isAccountOfType(String[] parts, Class<? extends Account> accountType) {
 		Account account = bank.getAccounts().get(Integer.parseInt(parts[1]));
-		if (account instanceof CDAccount) {
-			return true;
-		}
-		return false;
+		return accountType.isInstance(account);
 	}
 
 	public boolean checkAmountIsInValid(String[] parts) {
@@ -83,26 +81,15 @@ public class DepositCommandValidator {
 
 	public boolean checkDepositCheckingMaximumAllowed(String[] parts) {
 		double checkingMaxAmountAllowed = 1000;
-
-		if (Double.parseDouble(parts[2]) > checkingMaxAmountAllowed) {
-			return false;
-		}
-
-		return true;
+		return Double.parseDouble(parts[2]) <= checkingMaxAmountAllowed;
 	}
 
 	public boolean checkDepositSavingsMaximumAllowed(String[] parts) {
 		double savingsMaxAmountAllowed = 2500;
-
-		if (Double.parseDouble(parts[2]) > savingsMaxAmountAllowed) {
-			return false;
-		}
-
-		return true;
+		return Double.parseDouble(parts[2]) <= savingsMaxAmountAllowed;
 	}
 
 	public boolean checkAccountExistsInBank(String[] parts) {
 		return bank.getAccounts().containsKey(Integer.parseInt(parts[1]));
 	}
-
 }
