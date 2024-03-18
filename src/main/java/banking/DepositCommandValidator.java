@@ -10,23 +10,32 @@ public class DepositCommandValidator {
 	public boolean validate(String str) {
 		String[] parts = str.stripTrailing().split(" ");
 
-		if (checkAccountIdIsValid(parts) && checkAccountExistsInBank(parts) && !checkIfCDAccount(parts)) {
-
-			if (checkIfCheckingAccount(parts)) {
-				return (checkAmountIsInValid(parts) && checkAmountIsNotNegative(parts)
-						&& checkDepositCheckingMaximumAllowed(parts));
-			} else if (checkIfSavingsAccount(parts)) {
-				return (checkAmountIsInValid(parts) && checkAmountIsNotNegative(parts)
-						&& checkDepositSavingsMaximumAllowed(parts));
+		if (isValidDeposit(parts)) {
+			if (isCheckingAccount(parts)) {
+				return isValidCheckingDeposit(parts);
+			} else if (isSavingsAccount(parts)) {
+				return isValidSavingsDeposit(parts);
 			}
-			return false;
 		}
-
 		return false;
 	}
 
+	private boolean isValidDeposit(String[] parts) {
+		return checkAccountIdIsValid(parts) && checkAccountExistsInBank(parts) && !checkIfCDAccount(parts);
+	}
+
+	private boolean isValidCheckingDeposit(String[] parts) {
+		return checkAmountIsInValid(parts) && checkAmountIsNotNegative(parts)
+				&& checkDepositCheckingMaximumAllowed(parts);
+	}
+
+	private boolean isValidSavingsDeposit(String[] parts) {
+		return checkAmountIsInValid(parts) && checkAmountIsNotNegative(parts)
+				&& checkDepositSavingsMaximumAllowed(parts);
+	}
+
 	// some functions for validate()
-	public boolean checkIfCheckingAccount(String[] parts) {
+	public boolean isCheckingAccount(String[] parts) {
 		Account account = bank.getAccounts().get(Integer.parseInt(parts[1]));
 		if (account instanceof CheckingAccount) {
 			return true;
@@ -34,9 +43,17 @@ public class DepositCommandValidator {
 		return false;
 	}
 
-	public boolean checkIfSavingsAccount(String[] parts) {
+	public boolean isSavingsAccount(String[] parts) {
 		Account account = bank.getAccounts().get(Integer.parseInt(parts[1]));
 		if (account instanceof SavingsAccount) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean checkIfCDAccount(String[] parts) {
+		Account account = bank.getAccounts().get(Integer.parseInt(parts[1]));
+		if (account instanceof CDAccount) {
 			return true;
 		}
 		return false;
@@ -86,14 +103,6 @@ public class DepositCommandValidator {
 
 	public boolean checkAccountExistsInBank(String[] parts) {
 		return bank.getAccounts().containsKey(Integer.parseInt(parts[1]));
-	}
-
-	public boolean checkIfCDAccount(String[] parts) {
-		Account account = bank.getAccounts().get(Integer.parseInt(parts[1]));
-		if (account instanceof CDAccount) {
-			return true;
-		}
-		return false;
 	}
 
 }

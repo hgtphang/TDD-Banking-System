@@ -11,17 +11,23 @@ public class CreateCommandValidator {
 	public boolean validate(String str) {
 		String[] parts = str.stripTrailing().split(" ");
 
-		if (checkCreateCheckingSavingsHasFourArguments(parts) && checkCreateCheckingSavingsWithNoBalance(parts)) {
-			if (checkCreateCheckingAccountType(parts) || checkCreateSavingsAccountType(parts)) {
-				return checkAccountIdAndApr(parts);
-			}
-		} else if (checkCreateCDAccountHasFiveArguments(parts) && checkCreateCDWithBalance(parts)) {
-			if (checkCreateCDAccountType(parts)) {
-				return checkAccountIdAndApr(parts);
-			}
+		if (isValidCheckingOrSavingsAccount(parts)) {
+			return checkAccountIdAndApr(parts);
+		} else if (isValidCDAccount(parts)) {
+			return checkAccountIdAndApr(parts);
 		}
 
 		return false;
+	}
+
+	private boolean isValidCheckingOrSavingsAccount(String[] parts) {
+		return checkCreateCheckingSavingsHasFourArguments(parts) && checkCreateCheckingSavingsWithNoBalance(parts)
+				&& (checkCreateCheckingAccountType(parts) || checkCreateSavingsAccountType(parts));
+	}
+
+	private boolean isValidCDAccount(String[] parts) {
+		return checkCreateCDAccountHasFiveArguments(parts) && checkCreateCDWithBalance(parts)
+				&& checkCreateCDAccountType(parts);
 	}
 
 	// -- checking and savings account --
