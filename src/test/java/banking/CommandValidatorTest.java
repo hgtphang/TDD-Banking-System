@@ -41,6 +41,14 @@ public class CommandValidatorTest {
 	}
 
 	@Test
+	void deposit_is_valid() {
+		bank.createCheckingAccount(12345678, 2.1);
+
+		boolean actual = commandValidator.validate("deposit 12345678 300");
+		assertTrue(actual);
+	}
+
+	@Test
 	void deposit_has_words_in_caps_is_valid() {
 		bank.createCheckingAccount(12345678, 1.2);
 
